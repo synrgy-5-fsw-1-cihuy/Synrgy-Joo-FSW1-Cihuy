@@ -1,0 +1,51 @@
+* {
+  font-family: "Helvetica";
+}
+
+.btn-register {
+  font-family: "Helvetica";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.navbar-nav {
+  font-family: "Helvetica";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.navbar-nav > li {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.text-judul {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 150%;
+}
+
+.btn-home {
+  font-weight: 700;
+}
+
+ul#lists {
+  list-style-image: url(/assets/img/list.svg);
+}
+
+ul#lists li > span {
+  top: -5px;
+  position: relative;
+}
+
+/* .btn {
+  background-color: #5cb85f;
+} */
+
+/* .btn:hover {
+  background-color: black;
+} */
