@@ -2,22 +2,6 @@
   font-family: "Helvetica";
 }
 
-.btn-register {
-  font-family: "Helvetica";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.navbar-nav {
-  font-family: "Helvetica";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-}
-
 .navbar-nav > li {
   padding-left: 15px;
   padding-right: 15px;
@@ -30,7 +14,7 @@
 }
 
 .btn-home {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 ul#lists {
