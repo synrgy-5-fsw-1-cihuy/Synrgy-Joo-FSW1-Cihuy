@@ -18,7 +18,7 @@
 }
 
 ul#lists {
-  list-style-image: url(/public/images/list.svg);
+  list-style-image: url(./images/list.svg);
 }
 
 ul#lists li > span {

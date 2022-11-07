@@ -12,6 +12,7 @@ console.log(params);
 /*
  * Contoh penggunaan DOM di dalam class
  * */
+
 const app = new App();
 
 app.init().then(app.run);
