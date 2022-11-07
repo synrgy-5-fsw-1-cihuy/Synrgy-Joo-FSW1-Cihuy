@@ -1,0 +1,27 @@
+* {
+  font-family: "Helvetica";
+}
+
+.navbar-nav > li {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.text-judul {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 150%;
+}
+
+.btn-home {
+  font-weight: 600;
+}
+
+ul#lists {
+  list-style-image: url(/public/images/list.svg);
+}
+
+ul#lists li > span {
+  top: -5px;
+  position: relative;
+}
