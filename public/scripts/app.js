@@ -30,12 +30,12 @@ class App {
 
   onFilteredCar = async (event) => {
     this.clear();
-    const bookingDatesTime = this.onSelectedBookingDate.value + "T" + this.onSelectedTimeBooking.value;
-    const bookingDates = Date.parse(bookingDatesTime);
+    let bookingDatesTime = this.onSelectedBookingDate.value + "T" + this.onSelectedTimeBooking.value;
+    let bookingDates = Date.parse(bookingDatesTime);
 
     const filteredCar = await Binar.listCars((data) => {
       const dateAvailable = Date.parse(data.availableAt);
-      if (dateAvailable >= bookingDates && data.capacity >= this.onSelectedTotalPassenger.value) {
+      if (dateAvailable <= bookingDates && data.capacity >= this.onSelectedTotalPassenger.value) {
         return data.availableAt && data.capacity;
       }
     });
