@@ -1,39 +1,39 @@
-# Binar: Challenge 04
+# Cars Management API
 
-- Mulai modifikasi file `server/index.js` apabila ingin membuat HTTP server.
-- Mulai modifikasi folder `public` apabila ingin memodifikasi HTML.
+### Diagram
 
-# `Binar` class
+![diagram](diagram.png)
 
-Class ini berisi 1 static method saja, yang berfungsi untuk mengambil data mobil dari internet.
+### Endpoint
 
-```typescript
-interface Car {
-  id: string;
-  plate: string;
-  manufacture: string;
-  model: string;
-  image: string;
-  rentPerDay: number;
-  capacity: number;
-  description: string;
-  transmission: string;
-  available: boolean;
-  type: string;
-  year: string;
-  options: Array<string>;
-  specs: Array<string>;
-}
+##### METHOD GET :
 
-interface Binar {
-  listCars(filterer: (car: Car) => boolean): Array<Car>
-}
-```
+- '/api/cars' - get all cars
+- '/api/cars/[id]' - get a car based on **id**
 
-Method `listCars` ini akan menerima fungsi yang mana harus mengembalikan `boolean` sebagai nilainya. 
-Fungsi ini akan dijalankan untuk masing-masing item di dalam list of cars, yang mana jika nilainya `true`,
-maka akan ditampilkan di dalam list tersebut.
+##### METHOD POST :
 
-# Tips
+- '/api/cars' - insert a car
 
-Just, hack it bro!
+##### METHOD PUT :
+
+- '/api/cars/[id]' - update full car object based on **id**
+
+##### METHOD PATCH :
+
+- '/api/cars/[id]' - update partial car object based on **id**
+
+##### METHOD DELETE :
+
+- '/api/cars/[id]' - delete car object based on **id**
+
+#
+
+### Database
+
+##### Cars Attributes
+
+- name:varchar
+- rentPerDay: integer
+- capacity: integer
+- image: varchar

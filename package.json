@@ -7,7 +7,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "npx nodemon server/index.js"
+    "start": "npx nodemon server/index.js",
+    "startDB": "npx nodemon index.js"
   },
   "dependencies": {
     "cloudinary": "^1.32.0",
