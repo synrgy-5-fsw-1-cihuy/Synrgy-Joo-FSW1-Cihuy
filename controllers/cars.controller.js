@@ -1,207 +1,192 @@
 "use strict";
 
 const cloudinaryConfig = require("../config/cloudinary");
-const models = require("../models");
-const carModel = models.cars;
+const carService = require("../services/cars.services");
 const controller = {};
 
 controller.getAll = async (req, res) => {
-  let carData = await carModel.findAll({});
+  try {
+    let data = await carService.carList();
 
-  res.json(carData);
-  return;
+    return res.status(200).json({
+      message: "Mobil Tidak Ditemukan",
+      data: data,
+    });
+  } catch (error) {
+    return res.status(400).json({ error: error });
+  }
 };
 
 controller.getOne = async (req, res) => {
-  let params = req.params;
+  try {
+    let params = req.params;
 
-  let carData = await carModel.findOne({
-    where: {
-      id: params.id,
-    },
-  });
+    let data = await carService.oneCarById(params.id);
 
-  if (carData == null) {
-    res.end("Car was not found.");
-    return;
+    if (data == null) {
+      throw "Mobil Tidak Ditemukan.";
+    }
+
+    return res.status(200).json({
+      message: "Mobil Berhasil Ditemukan",
+      data: data,
+    });
+  } catch (error) {
+    return res.status(400).json({ error: error });
   }
-
-  res.json(carData);
-  return;
 };
 
 controller.insertOne = async (req, res) => {
-  let fields = req.fields;
-  let files = req.files;
+  try {
+    let fields = req.fields;
+    let files = req.files;
 
-  if (fields.name == undefined || fields.rentPerDay == undefined || fields.capacity == undefined || files.image == undefined) {
-    res.end("Data not complete.");
-    return;
-  }
-
-  await cloudinaryConfig.uploader.upload(files.image.path, { folder: "cars" }, async (err, result) => {
-    if (!!err) {
-      res.end("Upload image failed.");
-      return;
+    if (fields.name == undefined || fields.rentPerDay == undefined || fields.capacity == undefined || files.image == undefined) {
+      throw "Data Tidak Lengkap.";
     }
 
     let data = {
       name: fields.name,
-      rentPerDay: fields.rent_per_day,
+      rentPerDay: fields.rentPerDay,
       capacity: fields.capacity,
-      image: result.secure_url,
     };
 
-    await carModel.create(data);
+    await cloudinaryConfig.uploader.upload(files.image.path, { folder: "cars" }, async (err, result) => {
+      if (!!err) {
+        throw err;
+      }
 
-    res.json(data);
-    return;
-  });
-  return;
+      data.image = result.secure_url;
+    });
+
+    await carService.insertCar(req.currentUser, data);
+
+    return res.status(200).json({
+      message: "Berhasil Input Mobil",
+      data: data,
+    });
+  } catch (error) {
+    return res.status(400).json({ error: error });
+  }
 };
 
 controller.updateFull = async (req, res) => {
-  let fields = req.fields;
-  let files = req.files;
-  let params = req.params;
+  try {
+    let fields = req.fields;
+    let files = req.files;
+    let params = req.params;
 
-  if (fields.name == undefined || fields.rentPerDay == undefined || fields.capacity == undefined || files.image == undefined) {
-    res.end("Data not complete.");
-    return;
-  }
-
-  let carData = await carModel.findOne({
-    where: {
-      id: params.id,
-    },
-  });
-
-  if (carData == null) {
-    res.end("Car was not found.");
-    return;
-  }
-
-  let filename = carData.image.split("/").at(-2) + "/" + carData.image.split("/").at(-1).split(".")[0];
-
-  let data = {
-    name: fields.name,
-    rentPerDay: fields.rent_per_day,
-    capacity: fields.capacity,
-    image: result.secure_url,
-  };
-
-  await cloudinaryConfig.uploader.upload(files.image.path, { folder: "cars" }, async (err, result) => {
-    if (!!err) {
-      res.end("Upload image failed.");
-      return;
+    if (fields.name == undefined || fields.rentPerDay == undefined || fields.capacity == undefined || files.image == undefined) {
+      throw "Data Tidak Lengkap.";
     }
 
-    data.image = result.secure_url;
+    let carData = await carService.oneCarById(params.id);
 
-    await carModel.update(data, {
-      where: {
-        id: params.id,
-      },
-    });
+    if (carData == null) {
+      throw "Mobil Tidak Ditemukan.";
+    }
 
-    await cloudinaryConfig.uploader.destroy(filename);
+    let filename = carData.image.split("/").at(-2) + "/" + carData.image.split("/").at(-1).split(".")[0];
 
-    res.json(data);
-    return;
-  });
-  return;
-};
+    let data = {
+      name: fields.name,
+      rentPerDay: fields.rentPerDay,
+      capacity: fields.capacity,
+    };
 
-controller.updatePartially = async (req, res) => {
-  let fields = req.fields;
-  let files = req.files;
-  let params = req.params;
-
-  let carData = await carModel.findOne({
-    where: {
-      id: params.id,
-    },
-  });
-
-  if (carData == null) {
-    res.end("Car was not found.");
-    return;
-  }
-
-  let filename = carData.image.split("/").at(-2) + "/" + carData.image.split("/").at(-1).split(".")[0];
-
-  let data = {};
-
-  if (fields.name != undefined) {
-    data.name = fields.name;
-  }
-
-  if (fields.rent_per_day != undefined) {
-    data.rentPerDay = fields.rent_per_day;
-  }
-
-  if (fields.capacity != undefined) {
-    data.capacity = fields.capacity;
-  }
-
-  if (files.image != undefined) {
     await cloudinaryConfig.uploader.upload(files.image.path, { folder: "cars" }, async (err, result) => {
       if (!!err) {
-        res.end("Upload image failed.");
-        return;
+        throw "Upload Gambar Gagal.";
       }
 
       data.image = result.secure_url;
 
-      await carModel.update(data, {
-        where: {
-          id: params.id,
-        },
-      });
-
       await cloudinaryConfig.uploader.destroy(filename);
-
-      res.json(data);
-      return;
-    });
-  } else {
-    await carModel.update(data, {
-      where: {
-        id: params.id,
-      },
     });
 
-    res.json(data);
+    await carService.updateCarById(req.currentUser, data, params.id);
+
+    return res.status(200).json({
+      message: "Berhasil Mengubah Mobil!",
+      data: data,
+    });
+  } catch (error) {
+    return res.status(400).json({ error: error });
   }
-  return;
+};
+
+controller.updatePartial = async (req, res) => {
+  try {
+    let fields = req.fields;
+    let files = req.files;
+    let params = req.params;
+
+    let carData = await carService.oneCarById(params.id);
+
+    if (carData == null) {
+      throw "Mobil Tidak Ditemukan.";
+    }
+
+    let filename = carData.image.split("/").at(-2) + "/" + carData.image.split("/").at(-1).split(".")[0];
+
+    let data = {};
+
+    if (fields.name != undefined) {
+      data.name = fields.name;
+    }
+
+    if (fields.rentPerDay != undefined) {
+      data.rentPerDay = fields.rentPerDay;
+    }
+
+    if (fields.capacity != undefined) {
+      data.capacity = fields.capacity;
+    }
+
+    if (files.image != undefined) {
+      await cloudinaryConfig.uploader.upload(files.image.path, { folder: "cars" }, async (err, result) => {
+        if (!!err) {
+          res.end("Upload Gambar Gagal.");
+          return;
+        }
+
+        data.image = result.secure_url;
+
+        await cloudinaryConfig.uploader.destroy(filename);
+      });
+    }
+
+    await carService.updateCarById(req.currentUser, data, params.id);
+
+    return res.status(200).json({
+      message: "Berhasil Mengubah Mobil!",
+      data: data,
+    });
+  } catch (error) {
+    return res.status(400).json({ error: error });
+  }
 };
 
 controller.delete = async (req, res) => {
-  let params = req.params;
+  try {
+    let params = req.params;
 
-  let carData = await carModel.findOne({
-    where: {
-      id: params.id,
-    },
-  });
+    let carData = await carService.oneCarById(params.id);
 
-  if (carData == null) {
-    res.end("Car was not found.");
-    return;
+    if (carData == null) {
+      throw "Mobil Tidak Ditemukan.";
+    }
+
+    let filename = carData.image.split("/").at(-2) + "/" + carData.image.split("/").at(-1).split(".")[0];
+
+    await cloudinaryConfig.uploader.destroy(filename);
+
+    await carService.deleteCar(req.currentUser, params.id);
+
+    return res.status(200).json({ message: "Berhasil Hapus Mobil." });
+  } catch (error) {
+    return res.status(400).json({ error: error });
   }
-
-  let filename = carData.image.split("/").at(-2) + "/" + carData.image.split("/").at(-1).split(".")[0];
-
-  await carModel.destroy({
-    where: {
-      id: params.id,
-    },
-  });
-
-  await cloudinaryConfig.uploader.destroy(filename);
-
-  res.end("Success deleting car.");
-  return;
 };
 
 module.exports = controller;

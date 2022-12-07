@@ -12,7 +12,7 @@ controller.registerMember = async (req, res) => {
     let checkUser = await userService.oneUserEmail(fields.email);
 
     if (checkUser != null) {
-      throw "User Existed!";
+      throw "User Sudah Terdaftar!";
     }
 
     let password = await bcrypt.hash(fields.password);
@@ -26,7 +26,7 @@ controller.registerMember = async (req, res) => {
     await userService.insertUser(data);
 
     return res.status(200).json({
-      message: "User created!",
+      message: "User Berhasil Didaftar!",
       data: {
         email: fields.email,
         role: "member",
@@ -44,7 +44,7 @@ controller.registerAdmin = async (req, res) => {
     let checkUser = await userService.oneUserEmail(fields.email);
 
     if (checkUser != null) {
-      throw "Admin User Existed!";
+      throw "Admin User Sudah Terdaftar!";
     }
 
     let password = await bcrypt.hash(fields.password);
@@ -58,7 +58,7 @@ controller.registerAdmin = async (req, res) => {
     await userService.insertUser(data);
 
     return res.status(200).json({
-      message: "Admin User created!",
+      message: "Admin User Berhasil Didaftar!",
       data: {
         email: fields.email,
         role: "admin",
@@ -76,13 +76,13 @@ controller.login = async (req, res) => {
     let checkUser = await userService.oneUserEmail(fields.email);
 
     if (checkUser == null) {
-      throw "User not found. Please register";
+      throw "User tidak ditemukan. silahkan register";
     }
 
     let checkPassword = await bcrypt.compare(fields.password, checkUser.password);
 
     if (!checkPassword) {
-      throw "Password incorrect";
+      throw "Password Anda Salah";
     }
 
     let data = {
@@ -94,7 +94,7 @@ controller.login = async (req, res) => {
     let token = jwt.sign(data);
 
     return res.status(200).json({
-      message: "Login successfully",
+      message: "Login Berhasil",
       data: {
         token: token,
       },
