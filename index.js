@@ -42,7 +42,6 @@ const specs = swaggerJsDoc(options);
 
 // Routing
 app.use("/api/cars", cars);
-app.use("/api/products", products);
 app.use("/api/users", users);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 

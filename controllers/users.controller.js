@@ -114,4 +114,4 @@ controller.activeUser = async (req, res) => {
   }
 };
 
-module.export = controller;
+module.exports = controller;

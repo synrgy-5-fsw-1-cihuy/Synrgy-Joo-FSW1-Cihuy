@@ -135,6 +135,6 @@ router.post("/login", usersController.login);
  *                          schema:
  *                              $ref: '#/components/schemas/User'
  */
-router.get("/me", usersMiddleware.checkUser(), usersController.me);
+router.get("/activeUser", usersMiddleware.checkUser(), usersController.activeUser);
 
 module.exports = router;
