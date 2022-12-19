@@ -9,7 +9,7 @@ const Testimonials = () => {
             <div class="container px-5 py-5">
               <div class="row">
                 <div class="col-12 col-lg-3 align-self-center">
-                  <img src="/images/img_photo.png" alt="Avatar" class="img-fluid w-50 mx-auto mb-4" />
+                  <img src="/img/img_photo.png" alt="Avatar" class="img-fluid w-50 mx-auto mb-4" />
                 </div>
                 <div class="col-12 col-lg-9">
                   <div class="text-center text-lg-start text-warning">
@@ -34,7 +34,7 @@ const Testimonials = () => {
             <div class="container px-5">
               <div class="row">
                 <div class="col-12 col-lg-3 align-self-center">
-                  <img src="/images/img_photo.png" alt="Avatar" class="img-fluid w-50 mx-auto mb-4" />
+                  <img src="/img/img_photo.png" alt="Avatar" class="img-fluid w-50 mx-auto mb-4" />
                 </div>
                 <div class="col-12 col-lg-9">
                   <div class="text-center text-lg-start text-warning">
@@ -59,7 +59,7 @@ const Testimonials = () => {
             <div class="container px-5 py-5">
               <div class="row">
                 <div class="col-12 col-lg-3 align-self-center">
-                  <img src="/images/img_photo.png" alt="Avatar" class="img-fluid w-50 mx-auto mb-4" />
+                  <img src="/img/img_photo.png" alt="Avatar" class="img-fluid w-50 mx-auto mb-4" />
                 </div>
                 <div class="col-12 col-lg-9">
                   <div class="text-center text-lg-start text-warning">

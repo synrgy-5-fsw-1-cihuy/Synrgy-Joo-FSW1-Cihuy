@@ -93,6 +93,7 @@ const Content = () => {
 
   return (
     <div>
+      {/* Hero */}
       <section id="main" className="pt-md-4 mt-5 mb-5 bg-gray">
         <div className="container">
           <div className="row row-cols-md-2 row-cols-1 gy-4">
@@ -106,51 +107,63 @@ const Content = () => {
           </div>
         </div>
       </section>
-      <Container>
+      {/* End Hero */}
+
+      <Container className="card border border-white shadow w-100">
         <form onSubmit={(event) => onEventSubmitFilter(event)}>
-          <div>
-            <label>Filter by capacity</label>
-            <input type="number" onChange={(event) => onFilterCarCapacityParam(event)} />
-          </div>
-          <div>
-            <label>Filter by Date</label>
-            <input type="date" onChange={(event) => onFilterCarBookingDateParam(event)} />
-          </div>
-          <div>
-            <label>Filter by Time</label>
-            <select onChange={(event) => onFilterCarBookingTimeParam(event)}>
-              <option>Select waktu</option>
-              <option value="00:00">00.00</option>
-              <option value="01:00">01.00</option>
-              <option value="02:00">02.00</option>
-              <option value="03:00">03.00</option>
-              <option value="04:00">04.00</option>
-              <option value="05:00">05.00</option>
-              <option value="06:00">06.00</option>
-              <option value="07:00">07.00</option>
-              <option value="08:00">08.00</option>
-              <option value="09:00">09.00</option>
-              <option value="10:00">10.00</option>
-              <option value="11:00">11.00</option>
-              <option value="12:00">12.00</option>
-              <option value="13:00">13.00</option>
-              <option value="14:00">14.00</option>
-              <option value="15:00">15.00</option>
-              <option value="16:00">16.00</option>
-              <option value="17:00">17.00</option>
-              <option value="18:00">18.00</option>
-              <option value="19:00">19.00</option>
-              <option value="20:00">20.00</option>
-              <option value="21:00">21.00</option>
-              <option value="22:00">22.00</option>
-              <option value="23:00">23.00</option>
-            </select>
-          </div>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
+          <Row className="mt-4 ms-4">
+            <Col xs={4} md="auto">
+              <div>
+                <label className="me-1">Jumlah penumpang: </label>
+                <input type="number" onChange={(event) => onFilterCarCapacityParam(event)} />
+              </div>
+            </Col>
+            <Col className="ms-4">
+              <div>
+                <label className="me-1">Tanggal</label>
+                <input type="date" onChange={(event) => onFilterCarBookingDateParam(event)} />
+              </div>
+            </Col>
+            <Col>
+              <div>
+                <label className="me-1">Waktu</label>
+                <select onChange={(event) => onFilterCarBookingTimeParam(event)}>
+                  <option>Select waktu</option>
+                  <option value="00:00">00.00</option>
+                  <option value="01:00">01.00</option>
+                  <option value="02:00">02.00</option>
+                  <option value="03:00">03.00</option>
+                  <option value="04:00">04.00</option>
+                  <option value="05:00">05.00</option>
+                  <option value="06:00">06.00</option>
+                  <option value="07:00">07.00</option>
+                  <option value="08:00">08.00</option>
+                  <option value="09:00">09.00</option>
+                  <option value="10:00">10.00</option>
+                  <option value="11:00">11.00</option>
+                  <option value="12:00">12.00</option>
+                  <option value="13:00">13.00</option>
+                  <option value="14:00">14.00</option>
+                  <option value="15:00">15.00</option>
+                  <option value="16:00">16.00</option>
+                  <option value="17:00">17.00</option>
+                  <option value="18:00">18.00</option>
+                  <option value="19:00">19.00</option>
+                  <option value="20:00">20.00</option>
+                  <option value="21:00">21.00</option>
+                  <option value="22:00">22.00</option>
+                  <option value="23:00">23.00</option>
+                </select>
+              </div>
+            </Col>
+            <Col xs={2}>
+              <div>
+                <button type="submit">Submit</button>
+              </div>
+            </Col>
+          </Row>
         </form>
-        <Row>
+        <Row className="my-5">
           {cars.map((car, index) => {
             return (
               <Col>
