@@ -1,0 +1,22 @@
+@import url("https://fonts.cdnfonts.com/css/helvetica-255");
+
+body {
+  font-family: "Helvetica", Arial, sans-serif;
+}
+
+.navbg {
+  background-color: #f1f3ff;
+}
+
+.navtext {
+  color: black;
+}
+
+.navregister {
+  color: green;
+  font-weight: bold;
+}
+
+.ctabg {
+  background-color: #0d28a6;
+}
