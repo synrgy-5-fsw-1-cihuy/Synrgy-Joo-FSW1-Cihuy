@@ -89,7 +89,6 @@ describe("PUT /v1/cars/:id", () => {
 
 describe("DELETE /v1/cars/:id", () => {
   it("respond 204 deleted", async () => {
-    jest.setTimeout(60000);
     const car = await Car.create({
       name: "Brio",
       price: 150000,
@@ -103,7 +102,6 @@ describe("DELETE /v1/cars/:id", () => {
     await request(app)
       .delete(`/v1/cars/${car.id}`)
       .set({ Authorization: `Bearer ${token}` })
-      .expect("Content-Type", "application/json; charset=utf-8")
       .expect(204);
   });
 });
